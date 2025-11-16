@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lənkəran Dövlət Peşə Təhsil Mərkəzi</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+body { margin:0; font-family: Arial, sans-serif; background:#f5f0fa; color:#333; }
+#languageBar { text-align:right; padding:10px; background:#f0e6fa; }
+header { background: linear-gradient(135deg,#6a0dad,#9b30ff); color:white; text-align:center; padding:40px 20px; box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+header h1 { margin:0; font-size:2.5em; }
+header p { margin:10px 0 0; font-style:italic; font-size:1.2em; }
+header .top-bar { margin-top:10px; display:flex; justify-content:flex-end; gap:10px; align-items:center; flex-wrap:wrap; }
+header .top-bar span { font-weight:bold; margin-right:10px; }
+header .top-bar .social a { display:flex; align-items:center; justify-content:center; width:35px; height:35px; border-radius:50%; color:white; text-decoration:none; font-weight:bold; transition:0.3s; }
+header .top-bar .social a.facebook { background:#3b5998; }
+header .top-bar .social a.instagram { background:#e4405f; }
+header .top-bar .social a.twitter { background:#1da1f2; }
+header .top-bar .social a:hover { transform:scale(1.2); opacity:0.85; }
+
+nav { background:#7b1fcf; display:flex; justify-content:center; gap:15px; padding:12px 20px; align-items:center; flex-wrap: wrap; box-shadow:0 2px 6px rgba(0,0,0,0.2);}
+nav a { color:white; text-decoration:none; font-weight:bold; padding:8px 12px; border-radius:5px; transition:background 0.3s, transform 0.2s; cursor:pointer; }
+nav a:hover, nav a.active { background:#5a0f99; transform:scale(1.05); }
+
+.dropdown { position:relative; display:inline-block; }
+.dropbtn { cursor:pointer; }
+.dropdown-content { display:none; position:absolute; background:white; min-width:140px; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:5px; overflow:hidden; z-index:1; }
+.dropdown-content a { color:#333; padding:10px 15px; text-decoration:none; display:block; transition:0.2s; }
+.dropdown-content a:hover { background:#f2f2f2; transform:scale(1.02); }
+.dropdown:hover .dropdown-content { display:block; }
+
+main { margin:0; padding:20px; background:#f0e6fa; min-height:70vh; }
+section { width:100%; padding:20px; background:#f8f0ff; border-bottom:1px solid #ccc; box-sizing:border-box; display:none; border-radius:10px; margin:10px auto; max-width:1200px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+section h2 { color:#6a0dad; margin-top:0; }
+
+ul li { margin:5px 0; padding:8px; background:#e8d4ff; border-radius:8px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); transition:0.2s; cursor:pointer;}
+ul li:hover { transform:scale(1.02); background:#dcb3ff; }
+ul li button { margin-left:10px; background:#ff4d4d; color:white; border:none; padding:3px 7px; border-radius:5px; cursor:pointer; transition:0.2s; }
+ul li button:hover { transform:scale(1.1); opacity:0.9; }
+
+footer { text-align:center; padding:20px; background:#6a0dad; color:white; font-weight:bold; margin-top:20px; }
+
+form input, form select { padding:6px; margin:5px 0; border-radius:4px; border:1px solid #ccc; }
+form input:focus, form select:focus { border-color:#6a0dad; outline:none; box-shadow:0 0 5px #c29fff; }
+form button { padding:6px 12px; background:#6a0dad; color:white; border:none; cursor:pointer; border-radius:4px; transition:0.2s; }
+form button:hover { opacity:0.85; transform:scale(1.05); }
+</style>
+</head>
+<body>
+
+<div id="languageBar">
+  Dil: 
+  <select id="languageSelect" onchange="changeLanguage(this.value)">
+    <option value="az">AZ</option>
+    <option value="ru">RU</option>
+    <option value="en">EN</option>
+  </select>
+</div>
+
+<header>
+  <h1 id="title">Lənkəran Dövlət Peşə Təhsil Mərkəzi</h1>
+  <p id="slogan">Daha Peşəkar Gələcək</p>
+  <div class="top-bar">
+    <span id="clock"></span>
+    <div class="social">
+      <a href="https://facebook.com" target="_blank" class="facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://instagram.com" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitter.com" target="_blank" class="twitter"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <a onclick="showSection('home')">Ana Səhifə</a>
+  <div class="dropdown">
+    <a class="dropbtn">Tələbə / Məzun</a>
+    <div class="dropdown-content">
+      <a onclick="showSection('student')">Tələbə</a>
+      <a onclick="showSection('graduate')">Məzun</a>
+    </div>
+  </div>
+  <a onclick="showSection('login')">Login / Qeydiyyat</a>
+  <a onclick="showSection('job')">İş Yeri</a>
+  <a onclick="showSection('specialties')">İxtisaslar</a>
+</nav>
+
+<main>
+<section id="home"><h2>Ana Səhifə</h2><p>Xoş gəlmisiniz!</p></section>
+
+<section id="student">
+<h2>Tələbə</h2>
+<ul id="studentList"></ul>
+<div>
+<input type="text" id="studentName" placeholder="Ad">
+<input type="text" id="studentSurname" placeholder="Soyad">
+<input type="text" id="studentFather" placeholder="Ata adı">
+<button onclick="addStudent()">Əlavə et</button>
+</div>
+
+<h3>Dərs Materialları (PDF/Slide)</h3>
+<ul id="studentGrades"></ul>
+<div>
+<input type="file" id="lessonFile" accept=".pdf,.ppt,.pptx">
+<button onclick="addLesson()">Yüklə</button>
+</div>
+</section>
+
+<section id="graduate">
+<h2>Məzun</h2>
+<ul id="graduateList"></ul>
+<div>
+<input type="text" id="graduateName" placeholder="Ad">
+<input type="text" id="graduateSurname" placeholder="Soyad">
+<input type="text" id="graduateFather" placeholder="Ata adı">
+<button onclick="addGraduate()">Əlavə et</button>
+</div>
+</section>
+
+<section id="login">
+<h2>Login / Qeydiyyat</h2>
+<form id="registerForm">
+<h4>Qeydiyyat</h4>
+Ad: <input type="text" name="name" required><br>
+Email: <input type="email" name="email" required><br>
+Şifrə: <input type="password" name="password" required><br>
+Rol: <select name="role">
+<option value="student">Tələbə</option>
+<option value="graduate">Məzun</option>
+</select><br>
+<button type="submit">Qeydiyyat</button>
+</form>
+
+<form id="loginForm" style="margin-top:20px;">
+<h4>Login</h4>
+Email: <input type="email" name="email" required><br>
+Şifrə: <input type="password" name="password" required><br>
+<button type="submit">Giriş</button>
+</form>
+</section>
+
+<section id="job">
+<h2>İş Yeri</h2>
+<ul id="jobList"></ul>
+<div>
+<input type="text" id="newJob" placeholder="Yeni iş yeri | Vəzifə">
+<button onclick="addJob()">Əlavə et</button>
+</div>
+</section>
+
+<section id="specialties">
+<h2>İxtisaslar</h2>
+<ul id="specialtiesList"></ul>
+<div>
+<input type="text" id="newSpecialty" placeholder="Yeni ixtisas">
+<button onclick="addSpecialty()">Əlavə et</button>
+</div>
+</section>
+</main>
+
+<footer>Lənkəran 2025</footer>
+
+<script>
+// Saat
+function updateClock(){ const now=new Date(); document.getElementById('clock').innerText=now.toLocaleTimeString(); }
+setInterval(updateClock,1000);
+
+// Section toggle
+function showSection(id){
+  document.querySelectorAll('main section').forEach(sec=>sec.style.display='none');
+  document.getElementById(id).style.display='block';
+  document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+}
+
+// Dil dəyişmə
+const texts={ az:{ title:"Lənkəran Dövlət Peşə Təhsil Mərkəzi", slogan:"Daha Peşəkar Gələcək" },
+             ru:{ title:"Ленкоранский Государственный Профессиональный Образовательный Центр", slogan:"Более Профессиональное Будущее" },
+             en:{ title:"Lankaran State Vocational Education Center", slogan:"More Professional Future" } };
+function changeLanguage(lang){ document.getElementById('title').innerText=texts[lang].title; document.getElementById('slogan').innerText=texts[lang].slogan; }
+
+// Demo qeydiyyat/login
+document.getElementById('registerForm').addEventListener('submit', e=>{ e.preventDefault(); alert("Qeydiyyat tamamlandı (demo)."); });
+document.getElementById('loginForm').addEventListener('submit', e=>{ e.preventDefault(); alert("Giriş uğurlu (demo)."); });
+
+// LocalStorage funksiyaları
+function saveToStorage(key,arr){ localStorage.setItem(key,JSON.stringify(arr)); }
+function loadFromStorage(key){ const data=localStorage.getItem(key); return data?JSON.parse(data):[]; }
+
+// Generic addItem
+function addItem(listId,vals,storageKey){
+  if(vals.some(v=>!v)){ alert("Bütün sahələri doldurun!"); return; }
+  const text=vals.join(" ");
+  const li=document.createElement('li'); li.textContent=text; li.onclick=function(){ li.style.background='#b38fff'; };
+  const delBtn=document.createElement('button'); delBtn.textContent="Sil";
+  delBtn.onclick=function(){ li.remove(); let arr=loadFromStorage(storageKey); arr=arr.filter(i=>i!==text); saveToStorage(storageKey,arr); };
+  li.appendChild(delBtn);
+  document.getElementById(listId).appendChild(li);
+  let arr=loadFromStorage(storageKey); arr.push(text); saveToStorage(storageKey,arr);
+}
+
+// Funksiyalar
+function addStudent(){ addItem('studentList',[document.getElementById('studentName').value,document.getElementById('studentSurname').value,document.getElementById('studentFather').value],'students'); }
+function addGraduate(){ addItem('graduateList',[document.getElementById('graduateName').value,document.getElementById('graduateSurname').value,document.getElementById('graduateFather').value],'graduates'); }
+function addJob(){ addItem('jobList',[document.getElementById('newJob').value],'jobs'); }
+function addSpecialty(){ addItem('specialtiesList',[document.getElementById('newSpecialty').value],'specialties'); }
+
+// PDF/Slide yükləmə
+function addLesson(){
+  const fileInput=document.getElementById('lessonFile'); 
+  if(fileInput.files.length===0){ alert("Fayl seçin!"); return; }
+  const file=fileInput.files[0]; 
+  const li=document.createElement('li'); 
+  li.textContent=file.name; 
+  li.onclick=function(){ li.style.background='#b38fff'; };
+  const delBtn=document.createElement('button'); delBtn.textContent="Sil";
+  delBtn.onclick=function(){ li.remove(); let arr=loadFromStorage('lessons'); arr=arr.filter(i=>i!==file.name); saveToStorage('lessons',arr); };
+  li.appendChild(delBtn);
+  document.getElementById('studentGrades').appendChild(li);
+  let arr=loadFromStorage('lessons'); arr.push(file.name); saveToStorage('lessons',arr);
+}
+
+// Səhifə açılarkən yüklə
+window.onload=function(){
+  ['students','graduates','jobs','specialties','lessons'].forEach(key=>{
+    loadFromStorage(key).forEach(text=>{
+      const li=document.createElement('li'); li.textContent=text; li.onclick=function(){ li.style.background='#b38fff'; };
+      const delBtn=document.createElement('button'); delBtn.textContent="Sil";
+      delBtn.onclick=function(){ li.remove(); let arr=loadFromStorage(key); arr=arr.filter(i=>i!==text); saveToStorage(key,arr); };
+      li.appendChild(delBtn);
+      let listId='';
+      if(key==='students') listId='studentList';
+      else if(key==='graduates') listId='graduateList';
+      else if(key==='jobs') listId='jobList';
+      else if(key==='specialties') listId='specialtiesList';
+      else if(key==='lessons') listId='studentGrades';
+      document.getElementById(listId).appendChild(li);
+    });
+  });
+  showSection('home');
+  updateClock();
+};
+</script>
+
+</body>
+</html>
